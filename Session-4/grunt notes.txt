@@ -1,0 +1,350 @@
+Practice No: 1
+----------------------------------------------------------------------------------
+1.Create a folder named grunt demo.
+2.open it in VS Code
+3.open the terminal and install grunt-cli globally
+>npm install -g grunt-cli
+if your are trying to check the grunt version it will show an error that local grunt not found
+4.Before installing grunt let's create a package.json
+>npm init -y
+5. Now, install local grunt
+>npm install grunt --save
+ you can check the package.json file with updated grunt dependency.
+6. let's check the grunt version
+>grunt --version
+7.Let's create the grunt file: create a file named gruntfile.js
+
+module.exports=function(grunt){
+    grunt.initConfig({
+        pkg:grunt.file.readJSON('package.json'),
+    });
+};
+save the same
+then execute grunt command in terminal, 
+>grunt
+we have not defined any task yet so we will get warning like no defaults found.
+
+************************************************************************************************************
+Practice No:2 grunt plugins
+------------------------------------
+
+We are using the previously configured plugin only.
+
+*** autoprefixer***
+
+>npm install grunt-autoprefixer --save-dev
+
+to confirm the installation you can check package.json file
+
+let's enable this plugin in our grunt file.
+
+load the task in grunt file also register the same as default task.
+
+    grunt.loadNpmTasks('grunt-autoprefixure');
+    grunt.registerTask('default',['autoprefixure'])
+
+configure the task details above after configuring grunt
+
+autoprefixure:{
+            options:{
+                //Task specific details
+		browsers:['last 2 versions','ie 8','ie 9']
+            },
+            your_target:{
+                
+            }
+        }
+
+in options we can browser details
+
+_____________________________________________________________________________________________
+
+*** contrib-watch ***
+
+watching for changes
+
+>npm install grunt-contrib-watch --save-dev
+
+confirm the installation by varifying package.json file.
+
+let's add task in grunt file
+
+	grunt.loadNpmTasks('grunt-contrib-watch')
+
+let's configure watch 
+
+	watch:{
+            files:['css/style.css'],
+            task:['autoprefixer']
+        }
+
+means if any changes happens to this style.css file then autoprefixer will get executed
+
+let's add copy variable.
+
+copy:{
+            src:'css/style.css',
+            dest:'css/styleprefixed.css'
+        }
+
+__________________________________________________________________________________________________
+
+create css folder and inside the same create one file named style.css and then you can watch the changed in a file by executing a watch command
+
+>grunt watch
+
+***contrib-cssmin***
+
+automatically compress the css files
+
+>npm install grunt-contrib-cssmin --save-dev
+
+
+ grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+
+add cssmin variable
+
+cssmin:{
+            target:{
+                files:{
+                    'css/styleprefixed.min.css':['css/style.css']
+                }
+            }
+        }
+
+then execute >grunt cssmin
+
+you can see the min file got generated in css folder
+
+__________________________________________________________________________________
+
+Automatically compress and merge JS files
+
+>npm install grunt-contrib-uglify --save-dev
+
+register in grunt file
+
+>grunt.loadNpmTasks('grunt-contrib-uglify')
+
+let's create on js folder and script.js file in that.
+
+$('document').ready(function(){
+    alert("Simple Alert Message");
+})
+
+let's add uglify variable in grunt file
+
+uglify:{
+            target:{
+                files:{
+                    'js/output.min.js':['js/*.js']
+                }
+            }
+        }
+
+execute below commad to see the output
+
+>grunt uglify
+
+you can see the generated file at the given location.
+_________________________________________________________________________________________________
+
+Load multiple grunt task at once.
+
+>npm install load-grunt-tasks --save-dev
+
+this you need to register on the top of config  of grunt.
+
+module.exports=function(grunt){
+    require('load-grunt-tasks')(grunt) //add this line
+    grunt.initConfig({
+
+you can install netbeans IDE--> open project and once loaded successfully you can right click on grunt file and check the grunt tasks.
+
+_____________________________________________________________________________________
+
+*** imagemin ***
+
+to minify the images
+
+> npm install grunt-contrib-imagemin --save-dev
+
+create images folder and add some images in that folder.
+
+add imagemin variable
+
+imagemin:{
+            dynamic:{
+                files:[{
+                    expand:true,
+                    cwd:'images/',
+                    src:['**/*.{jpg,png,gif}'],
+                    dest:'images/build'
+                }]
+            }  
+        }
+
+execute imagemin task
+
+>grunt imagemin
+
+else right click on gruntfile and execute imagemin task.
+___________________________________________________________________________________
+
+cpmressing only new images which added later.
+
+>npm install grunt-newer --save-dev
+
+register this task
+
+grunt.registerTask("MinifyOnlyNewlyAddedImages","newer:imagemin")
+
+execute below mentioned command
+
+>grunt MinifyOnlyNewlyAddedImages
+
+it will compress now only newly added images.
+
+______________________________________________________________________________________
+
+finding bugs in my javascript code > plung javascript hint 
+
+>npm install grunt-contrib-jshint --save-dev
+
+jshint:{
+            options:{
+                "bitwise":true,
+                "camelcase":true,
+                "curly":true,
+                "newcap":true,
+                "latedef":true,
+                "unused":true,
+                "jquery":true,
+                "node":true
+            },
+            target:{
+                src:['js/**/*.js','!js/output.min.js']
+            }
+        }
+
+_________________________________________________________________________
+
+execute grunt jshint and check whether the file is lint free or not.
+
+_______________________________________________________________________________
+
+If i wnat to execute multiple task concurrently the 
+
+>npm install grunt-concurrent --save-dev
+
+add the concurrent variable in grunt file
+
+concurrent:{
+            target:{
+                tasks:['watch','autoprefixer','imagemin'],
+                options:{
+                    logConcurrentOutput:true
+                }
+            }
+        }
+
+
+execute
+
+>grunt concurrent
+
+you can see the task running parrellelly in console
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

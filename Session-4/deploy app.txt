@@ -1,0 +1,100 @@
+Deploy a project
+_________________________________
+
+1. create a production ready zip file
+
+>npm install grunt-contrib-compress --save-dev
+
+configure the compress variable
+
+compress:{
+            main:{
+                options:{
+                    archive:'site.zip'
+                },
+                files:[
+                    {expand:true,src:['css/*'],dest:'/'}
+                ]
+            }
+        }
+
+________________________________________________________________________________
+
+
+2. to execute multiple tasks
+
+grunt.registerTask('build',['cssmin','uglify','imagemin','compress']);
+
+execute
+
+grunt build
+
+3. Integrate with git
+
+>npm install grunt-git --save-dev
+
+configure the git commit variable in grunt file
+
+
+gitcommit:{
+	task:{
+	 options:{
+		message: 'Test commit',
+		noVerify: true,
+		noStatus:false
+	},
+	files:{ src: [.]}
+}}
+
+
+execute
+>grunt gitcommit
+
+4. Connect with some githook
+
+>npm install grunt-githooks --save-dev
+
+configure githook varible in grunt file
+
+githooks:{
+	all:{
+		'pre-commit':'test'
+	}
+}
+
+5. continously move files to the production
+
+>npm install grunt-rsync --save-dev
+
+rsync variable in grunt file
+
+rsync:{
+	options:{
+		exclude:['.git','node_modules','*.scss'],
+		reclusive:true
+	},
+	prod:{
+		options:{
+			src:'.',
+			dest:'grunt project/prod',
+			host:'192.168.20.10'
+		}
+	}
+}
+
+>grunt rsync
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

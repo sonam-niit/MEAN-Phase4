@@ -1,0 +1,124 @@
+Qunit Test using grunt
+-----------------------------------------
+
+create one folder named qunit-test
+
+open vscode with that folder
+
+>npm install grunt --save-dev
+>npm install qunit --save-dev
+>npm install grunt-contrib-qunit --save-dev
+
+create a folder named tests and create
+
+index.html
+----------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.19.3/qunit.css" integrity="sha512-BSoOOqiaId24Im9C+R1VrJBZWPSMEb9cEHsJ0sTxikqaO9yDVn70Bvz+FV3c9+HjSwCpCxPjwWjHn4DOOHaSvw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>QUnit Example</title>
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.19.3/qunit.min.js" integrity="sha512-WhB7uzt5REw9jCiYENLUa1Re/+48XJRYdZ7+o+EDMb9+rW7zW1wNr4EHazfzth3H2YN1P8PfTFiG8uzWMyCfUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="tests.js"></script>
+</body>
+</html>
+
+create tests.js file
+---------------------------
+
+QUnit.test('hello test',function(assert){
+    assert.ok(1=="1","Passed");
+})
+
+now let's configure grunt file.
+
+module.exports=function(grunt){
+    require('load-grunt-tasks')(grunt);
+    grunt.initConfig({
+        pkg:grunt.file.readJSON('package.json'),
+        qunit:{
+            all:{
+                options:{
+                    urls:[
+                        'http://localhost:8080'
+                    ]
+                }
+            }
+        },
+        connect:{
+            server:{
+                options:{
+                    port:8080,
+                    base:'tests/',
+                    keepalive:true
+                }
+            }
+        }
+    });
+
+    grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-connect')
+};
+
+_________________________________________________________________________________________
+
+to connect with the server 
+>npm install grunt-contrib-connect --save-dev
+
+and configure as shown above
+
+>npm install load-grunt-tasks --save-dev
+
+to execute first of connect
+
+in one terminal > grunt connect
+
+in another terminal> grunt qunit
+
+__________________________________________________________________________________________
+
+or you can open the project in netbeans and execute first connect tast and then qunit task.
+
+For behavioural Testing
+
+>npm install grunt-behat --save-dev
+
+behat:{
+            tests:{
+                options:{
+                    output:true,
+                    failOnUndefined:true,
+                    failOnFailed:true
+                },
+                cmd:'node_modules/grunt-behat/bin',
+                features:'features/',
+                flags:'-f pretty'
+            }
+        }
+
+execute 
+>grunt behat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
