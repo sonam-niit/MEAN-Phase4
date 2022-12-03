@@ -1,0 +1,110 @@
+Open the lab on your lms
+
+click on start lab once all nodes are in green color you can start working with docker
+
+Docker Version
+------------------------
+docker --version
+
+to check the docker engine (server)details
+
+>sudo docker version
+
+Task 1: Create an image for some application
+--------------------------------------------------
+
+git clone https://github.com/sonam-niit/docker_master.git
+(clone application)
+
+move to that folder
+
+>cd docker_master
+
+let's build an image
+
+>sudo docker build -t phpwebsite .
+
+(phpwebsite is the name of my image)
+(. means it will search for Dockerfile at the same location)
+
+It will execute all steps mentioned Dockerfile once the image created successfully check the images
+>sudo docker images (you can the list of images)
+
+Let's run the image in container
+
+>sudo docker run -d --name mycontainer -p 80:80 phpwebsite
+
+(this command will run the image named phpwebsite on container named mycontainer on port number 80)
+when you execute this command if you get ref id as response means container created.
+
+>to check the running application on container
+click master node> open desktop> open any browser and type localhost:80
+(you can see output of index.php)
+
+same you can check using curl command in terminal
+
+>curl localhost
+
+*********************************************************************
+to check the running containers
+
+>sudo docker container ps
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

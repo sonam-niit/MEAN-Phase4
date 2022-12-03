@@ -1,0 +1,32 @@
+3. Deploy a Docker Container on a Docker Swarm
+
+initialize a Docker swarm
+>sudo docker swarm init
+
+where you have executed this command will become a Leader node.
+check the status of your node
+>sudo docker node ls
+
+let's create a service to this docker swarm
+
+>sudo docker service create -p 80:80 --name myservice phpcode
+
+check the service status
+
+>docker service ls
+
+>curl localhost:80
+
+(application runing with service created)
+
+If you want to check the details of the service
+>sudo docker service ps myservice
+(Note: Everytime if you are getting error of permission denied to execute any command you can access with sudo or execute below mentioned command for the permission access)
+
+>sudo chmod 777 /var/run/docker.sock
+
+Let's Scale It
+
+>docker service scale myservice=3
+>docker service ls
+>docker service ps myservice

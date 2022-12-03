@@ -1,0 +1,85 @@
+Distrubute an Application Across the swarm cluster.
+______________________________________________________________________
+
+lets edit one host file and declare master and worker node
+
+>sudo vi /etc/hosts
+
+it will open the file with vi editor
+>press i so your can edit the file below localhost press enter and add below mentioned thing
+
+172.31.4.13 master
+172.31.5.139 worker1
+
+press esc type :wq! press enter so file saved successfully.
+
+let's try to connect with this nodes.
+
+>ping master
+connect then stop by using ctrl+c
+>ping worker1
+stop by ctrl+c
+__________________________________________________________________________
+
+initialize a swarm cluster by using below command
+>sudo docker swarm init --advertise-addr 172.31.4.13 (MasterNode Ip)
+
+(if already initialized swarm then need to leave the swarm cluster first)
+>sudo docker swarm leave --force
+
+once swarm initialied it will give to command to connect from worker node copy that and execute with sudo from worker node. If connect then go the master node
+
+>sudo docker node ls
+
+(you can see here the list of node where one node is learder and one node is worker)
+
+let's create service with 2 replicas
+
+sudo docker service create --name clusterservice --publish 8081:8081 --replicas 2 sonamsoni/phpwebsite
+
+-- clusterservice is the name of service
+-- replicas will create a number of replicas mentioned
+-- publish will publish service on given port number
+-- sonamsoni/phpwebsite is my image which is pushed dockerhub (so docker will serahc this image from dockerhub then pull it and then it will create service as required)
+
+(Note: for pulling the image docker login command must be executed beore that then only will works)
+
+once the service converged then execute below command to see the services are running on which node
+
+> sudo docker service ps clusterservice
+
+(you can see one service is running on master node and one is running on worker node)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

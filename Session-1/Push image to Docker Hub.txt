@@ -1,0 +1,23 @@
+2. Push Image to docker Hub
+----------------------------------------------------------
+Create an account to docker hub
+
+let's do docker login from our terminal to connect with docker Hub.
+
+>sudo docker login
+
+enter your username:
+type your password which is not visible there just type and press enter.
+
+_______________________________________________________________________________________________
+
+create a tag for docker image
+
+>sudo docker tag phpwebsite sonamsoni/phpwebsite
+
+phpwebsite is my imagename
+sonamsoni/phpwebsite is my repository name
+
+>sudo docker push sonamsoni/phpwebsite
+
+(refresh your dockerhub account and check)
