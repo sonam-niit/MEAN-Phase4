@@ -1,13 +1,29 @@
 Let's install Jenkins
 _______________________________________________
 
+>sudo apt-get update
+>sudo apt install ca-certificates
+
+install JDK to work with jenkins
+
+>sudo apt-get update
+>sudo apt- install default-jdk
+
+it will ask you do you want install it then say y and press enter
+
 >curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 >echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 
->sudo apt install ca-certificates
-
 >sudo apt-get update
 >sudo apt-get install jenkins
+
+let's start jenkins
+
+>sudo systemctl start jenkins
+
+check the status of jenkins
+
+>sudo systemctl status jenkins
